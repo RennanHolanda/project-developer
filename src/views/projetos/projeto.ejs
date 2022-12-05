@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastrar</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+    crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/bf7e05c402.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <%- include("../partials/header.ejs")%>
+    <main>
+      <section id="area-login">
+        <div class="container">
+          <section class="col-md-12 mx-auto m-0">
+            <thead>
+              <form action="/home/search" class="d-flex" role="search" method="get">
+                <a href="/project/register" type="button" class="btn btn-secondary">Cadastrar projeto</a>
+                <input class="form-control me-2" type="search" placeholder="Pesquise um usuário" aria-label="Search"
+                  name="key">
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
+              </form>
+              <table class="table table-striped">
+                <tr>
+                  <th scope="col">Nome do projeto</th>
+                  <th scope="col">Cep</th>
+                  <th scope="col">valor</th>
+                  <th scope="col">status</th>
+                  <th scope="col">Data limite</th>
+                  <th scope="col">Usuário</th>
+                  <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <% project.forEach(project=> { %>
+              <tbody class="table-group-divider">
+                <tr>
+                  <th scope="row">
+                    <%= project.tilte %>
+                  </th>
+                  <td>
+                    <%= project.zip_code %>
+                  </td>
+                  <td>
+                    <%= project.cost %>
+                  </td>
+                  <td>
+                    <form action="/projectc/<%= project.done %>/done?method=PATCH" method="post">
+                      <select class="form-select" aria-label="Default select example">
+                        <input type="text" name="done">
+                        <option selected>Status</option>
+                        <option value="1">Em andamento</option>
+                        <option value="2">Concluído</option>
+                      </select>
+                    </form>
+                  </td>
+                  <td>
+                    <%= project.deadline %>
+                  </td>
+                  <td>
+                    <%= project.username %>
+                  </td>
+                  <td>
+                    <a href="/home/show/<%=project.id %>/users" type="button" class="btn btn-secondary">Ver dados</a>
+                  </td>
+                </tr>
+              </tbody>
+              <% }); %>
+                </table>
+          </section>
+        </div>
+      </section>
+    </main>
+    <%- include('../partials/footer') %>
+      <!-- JavaScript Bundle with Popper -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
