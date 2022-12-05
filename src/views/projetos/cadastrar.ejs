@@ -36,33 +36,37 @@
                     <div class="row">
                       <form class="row g-3" action="/project" method="POST">
                             <div class="col-md-12">
-                              <label for="validationCustom01" class="form-label">Nome do projeto</label>
-                              <input type="text" name="tilte" class="form-control" id="validationCustom01" required placeholder="Ex: Projeto SimTech">
-                              <div class="col-md-3">
+                              <div class="col-md-10">
+                                <label for="validationCustom01" class="form-label">Nome do projeto</label>
+                                <input type="text" name="title" class="form-control" id="validationCustom01" required placeholder="Ex: Projeto SimTech">
+                              </div>
+                              <div class="col-md-6">
                                 <label for="validationDefault05" class="form-label">Cep</label>
                                 <input type="text" name="zipe_code" class="form-control" id="validationDefault05" required>
                               </div>
-                              <div class="input-group mb-3">
-                                <label for="">Valor</label>
-                                <span class="input-group-text">R$</span>
-                                <input type="text" name="cost" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                <span class="input-group-text">.00</span>
-                              </div>
-                              <select class="form-select" aria-label="Default select example">
-                                <input type="text" name="done">
-                                <option selected>Status</option>
-                                <option value="1">Em andamento</option>
-                                <option value="2">Concluído</option>
-                              </select>
-                              <div>
-                                <label for="date">Exemplo data</label>
-                                <input type="date" id="date" name="deadline">
-                              </div>
-                              <label for="inputEmail4" class="form-label">Usuário</label>
-                              <input type="username" name="username" placeholder="Exemplo: joao" class="form-control"
-                                id="inputEmail4">
+                              <br>
+                              <div class="col-md-10 input-group mb-3" >
+                                  <span class="input-group-text">R$</span>
+                                  <input type="text" name="cost" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                  <span class="input-group-text">.00</span>
+                                </div>
+                                <div class="col-md-4">
+                                  <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required name="done">
+                                  <label class="form-check-label" for="invalidCheck">
+                                    Projeto concluido
+                                  </label>
+                                </div><br>
+                              <div class="col-md-6">
+                                <label for="validationDefault05" class="form-label">Data limite</label>
+                                <input type="date" name="deadline" class="form-control" id="validationDefault05" required>
+                              </div><br>
+                              <div class="col-md-10">
+                                <label for="inputEmail4" class="form-label">Usuário</label>
+                                <input type="username" name="user_id" placeholder="Exemplo: joaoPaulo" class="form-control"
+                                  id="inputEmail4">
+                              </div><br>
                             </div>
-                            <div class="col-12">
+                            <div class="col-md-10" id="cadastrar-projeto">
                               <button type="submit" class="btn btn-primary">Cadastrar</button>
                             </div>
                       </form>

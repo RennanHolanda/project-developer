@@ -10,7 +10,7 @@ module.exports = {
           allowNull: false,
           primaryKey: true
         },
-        tilte: {
+        title: {
           type: Sequelize.DataTypes.STRING(150),
           allowNull: false
         },
@@ -29,10 +29,6 @@ module.exports = {
         },
         deadline: {
           type: Sequelize.DataTypes.DATE,
-          allowNull: false
-        },
-        username: {
-          type: Sequelize.DataTypes.STRING(150),
           allowNull: false
         },
         user_id:{

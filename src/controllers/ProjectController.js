@@ -1,4 +1,5 @@
-const { Project } = require('../models')
+const { Project } = require('../models');
+const sequelize = require("sequelize");
 
 const ProjectController = {
     index: async (req, res) => {
@@ -7,39 +8,84 @@ const ProjectController = {
         return res.render("./projetos/projeto", { project });
     },
     done: (req, res) => {
-        res.redirect('/projects')
+        res.redirect('/projects');
     },
     showProject: (req, res) => {
-        res.render('./projetos/detalhes')
+        res.render('./projetos/detalhes');
     },
     showRegister: (req, res) => {
-        res.render('./projetos/cadastrar')
+        res.render('./projetos/cadastrar');
     },
     register: async (req, res) => {
         try {
-            const { tilte, zipe_code, cost, done, deadline, username, user_id  } = req.body;
+            const { title, zipe_code, cost, done, deadline, user_id  } = req.body;
+            const veradeiro = false;
+
 
             const project = await Project.create({
-                tilte,
+                title,
                 zipe_code,
                 cost,
-                done,
+                done:veradeiro,
                 deadline,
-                username,
                 user_id
             })
-            console.log(project)
+            console.log(project);
         } catch (error) {
             console.log(error)
-            return res.render('./projetos/detalhes', {error:"Sistema indisponível"})
+            return res.render('./projetos/projeto', {error:"Sistema indisponível"})
             
         }
     },
-    update: (req, res) => {
-        res.render('./projeto/editar')
+    showDetails: async (req, res) => {
+        const { id } = req.params;
+
+        const project = await Project.findByPk(id);
+
+        res.render('./projetos/detalhes', { project });
     },
-    delete: (req, res) => {
-        res.redirect('/projects')
+    showUpdate: async (req, res) => {
+        const { id } = req.params;
+
+        const project = await Project.findByPk(id);
+
+        res.render('./projetos/editar', { project });
+    },
+    update: async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            const { title, zipe_code, cost, deadline  } = req.body;
+
+            const project = await Project.update(
+                {
+                title,
+                zipe_code,
+                cost,
+                deadline,
+                },
+                {
+                    where: { id },
+                }
+            )
+            console.log(project);
+            res.redirect('/projects');
+        } catch (error) {
+            console.log(error)
+            return res.render('./projetos/detalhes', {error:"Sistema indisponível"});
+            
+        }
+    },
+    destroy: async (req, res) => {
+        const { id } = req.params;
+
+        const destroyProject = await Project.destroy({
+          where: {
+            id: id,
+          },
+        });
+        console.log(destroyProject)
+        res.redirect('/projects');
     }
 }
 

@@ -5,9 +5,10 @@ module.exports = (sequelize, DataTypes) => {
         id: {
           type:DataTypes.UUID,
           allowNull: false,
-          primaryKey: true
+          primaryKey: true,
+          defaultValue: DataTypes.UUIDV4
         },
-        tilte: {
+        title: {
           type: DataTypes.STRING(150),
           allowNull: false
         },
@@ -26,10 +27,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         deadline: {
           type: DataTypes.DATE,
-          allowNull: false
-        },
-        username: {
-          type: DataTypes.STRING(150),
           allowNull: false
         },
         user_id:{
