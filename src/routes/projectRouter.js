@@ -12,6 +12,7 @@ router.get("/project/:id/edit", ProjectController.showUpdate)
 router.put("/project/:id", ProjectController.update)
 router.delete("/projects/:id", ProjectController.delete)
 router.get("/project/:id", ProjectController.showProject)
+
 router.get("/projects/search", ProjectController.search);
 
 

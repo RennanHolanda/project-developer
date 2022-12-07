@@ -10,7 +10,7 @@ module.exports = {
           allowNull: false,
           primaryKey: true
         },
-        title: {
+        tilte: {
           type: Sequelize.DataTypes.STRING(150),
           allowNull: false
         },

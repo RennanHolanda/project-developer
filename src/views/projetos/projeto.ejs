@@ -21,24 +21,16 @@
 <body>
   <%- include("../partials/header.ejs")%>
     <main>
-      <br><br>
-      <div class="container">
-        <div class="col-md-12">
-          <h4 id="titulo-pagina">Projetos</h4>
-        </div>
-        <section class="col-md-12 mx-auto m-0">
-            <div id="form-search">
-                <form action="/projects/search" class="d-flex" role="search" method="get">
-                  <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search"
-                    name="key">
-                  <button class="btn btn-outline-success" type="submit">Buscar</button>
-                </form>
-              </div>
-              <div id="btn-project">
-                <a href="/project/register" id="cadastrar-projeto" type="button" class="btn btn-secondary">Cadastrar projeto</a>
-              </div>
-              <br>
+      <section id="area-login">
+        <div class="container">
+          <section class="col-md-12 mx-auto m-0">
             <thead>
+              <form action="/projects/search" class="d-flex" role="search" method="get">
+                <a href="/project/register" type="button" class="btn btn-secondary">Cadastrar projeto</a>
+                <input class="form-control me-2" type="search" placeholder="Pesquise um usuário" aria-label="Search"
+                  name="key">
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
+              </form>
               <table class="table table-striped">
                 <tr>
                   <th scope="col">Nome do projeto</th>
@@ -47,7 +39,7 @@
                   <th scope="col">status</th>
                   <th scope="col">Data limite</th>
                   <th scope="col">Usuário</th>
-                  <th scope="col">Ações</th>
+                  <th scope="col">Detalhes</th>
                   <th scope="col">Excluir</th>
                 </tr>
             </thead>
@@ -84,15 +76,15 @@
                     <%= project.deadline %>
                   </td>
                   <td>
-                    <%= project.username %>
+                    <%= project.user_id %>
                   </td>
                   <td>
                     <a href="/project/<%= project.id %>" type="button" class="btn btn-secondary">Ver dados</a>
                   </td>
                   <td>
-                    <form action="/projects/<%= project.id %>?_method=DELETE" method="POST">
-                      <button id="btn-dager" type="submit" class="btn btn-danger">Remover</button>
-                    </form>
+                    <form class="row g-3" action="/projects/<%=project.id %>?_method=DELETE" method="POST">
+                      <button id="btn-dager"type="button" class="btn btn-danger">Deletar</button>
+                  </form>
                   </td>
                 </tr>
               </tbody>
@@ -100,6 +92,7 @@
                 </table>
           </section>
         </div>
+      </section>
     </main>
     <%- include('../partials/footer') %>
       <!-- JavaScript Bundle with Popper -->
