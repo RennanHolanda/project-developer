@@ -6,13 +6,11 @@ const cepApi = require('../services/cepApi')
 
 const ProjectController = {
     index: async (req, res) => {
-        try {
-            let project = await Project.findAll();
+
+        let project = await Project.findAll();
 
         return res.render("./projetos/projeto", { project });
-        } catch (error) {
-            return res.render("./projetos/projeto", { error:"Sistema indisponível" });
-        } 
+     
     },
     done:async (req, res) => {
         try {
