@@ -53,7 +53,6 @@ const ProjectController = {
                 username,
                 user_id:userId
             })
-            console.log(project)
            return res.redirect('/projects')
         } catch (error) {
             console.log(error)

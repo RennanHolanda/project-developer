@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
         id: {
           type:DataTypes.UUID,
           allowNull: false,
-          primaryKey: true
+          primaryKey: true,
+          defaultValue: DataTypes.UUIDV4
         },
         title: {
           type: DataTypes.STRING(150),
@@ -34,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false
         },
         user_id:{
-          type: DataTypes.STRING(150),
+          type: DataTypes.UUID,
           references: {
             model: { tableName: 'users' },
             key: 'id'

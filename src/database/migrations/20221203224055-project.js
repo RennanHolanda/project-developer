@@ -10,7 +10,7 @@ module.exports = {
           allowNull: false,
           primaryKey: true
         },
-        tilte: {
+        title: {
           type: Sequelize.DataTypes.STRING(150),
           allowNull: false
         },
@@ -25,7 +25,8 @@ module.exports = {
         },
         done: {
           type: Sequelize.DataTypes.BOOLEAN,
-          allowNull: false
+          allowNull: false,
+          defaultValue: false
         },
         deadline: {
           type: Sequelize.DataTypes.DATE,

@@ -24,14 +24,14 @@
       <section id="area-login">
         <div class="container">
           <section class="col-md-12 mx-auto m-0">
-            <thead>
               <form action="/projects/search" class="d-flex" role="search" method="get">
-                <a href="/project/register" type="button" class="btn btn-secondary">Cadastrar projeto</a>
                 <input class="form-control me-2" type="search" placeholder="Pesquise um usuário" aria-label="Search"
-                  name="key">
+                name="key">
                 <button class="btn btn-outline-success" type="submit">Buscar</button>
               </form>
-              <table class="table table-striped">
+              <a href="/project/register" type="button" class="btn btn-secondary">Cadastrar projeto</a>
+            <table class="table table-striped">
+              <thead>
                 <tr>
                   <th scope="col">Nome do projeto</th>
                   <th scope="col">Cep</th>
@@ -43,7 +43,7 @@
                   <th scope="col">Excluir</th>
                 </tr>
             </thead>
-            <% project.forEach(project=> { %>
+            <% project.forEach(project => { %>
               <tbody class="table-group-divider">
                 <tr>
                   <th scope="row">
@@ -76,7 +76,7 @@
                     <%= project.deadline %>
                   </td>
                   <td>
-                    <%= project.user_id %>
+                    <%= project.username %>
                   </td>
                   <td>
                     <a href="/project/<%= project.id %>" type="button" class="btn btn-secondary">Ver dados</a>
@@ -84,7 +84,7 @@
                   <td>
                     <form class="row g-3" action="/projects/<%= project.id %>?_method=DELETE" method="POST">
                       <button id="btn-dager"type="submit" class="btn btn-danger">Deletar</button>
-                  </form>
+                    </form>
                   </td>
                 </tr>
               </tbody>
