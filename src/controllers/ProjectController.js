@@ -116,7 +116,7 @@ const ProjectController = {
 
             await Project.destroy({
                 where: {
-                  id: id,
+                  id
                 }
               });
         res.redirect('/projects');

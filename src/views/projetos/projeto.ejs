@@ -82,8 +82,8 @@
                     <a href="/project/<%= project.id %>" type="button" class="btn btn-secondary">Ver dados</a>
                   </td>
                   <td>
-                    <form class="row g-3" action="/projects/<%=project.id %>?_method=DELETE" method="POST">
-                      <button id="btn-dager"type="button" class="btn btn-danger">Deletar</button>
+                    <form class="row g-3" action="/projects/<%= project.id %>?_method=DELETE" method="POST">
+                      <button id="btn-dager"type="submit" class="btn btn-danger">Deletar</button>
                   </form>
                   </td>
                 </tr>
