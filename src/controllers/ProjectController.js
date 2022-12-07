@@ -45,7 +45,7 @@ const ProjectController = {
             const userId = req.session.user.id;
             const username = req.session.user.username;
 
-            const project = await Project.create({
+                const project = await Project.create({
                 title,
                 zipe_code,
                 cost,
@@ -53,7 +53,8 @@ const ProjectController = {
                 username,
                 user_id:userId
             })
-            res.redirect('/projects')
+            console.log(project)
+           return res.redirect('/projects')
         } catch (error) {
             console.log(error)
             return res.render('./projetos/projeto', {error:"Sistema indisponível"})  
