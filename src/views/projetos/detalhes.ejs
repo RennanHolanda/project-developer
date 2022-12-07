@@ -20,19 +20,18 @@
 
 <body>
   <%- include("../partials/header.ejs")%>
-    <main>
-      <section id="area-login">
+    <main> 
+    <br><br>
+      <section id="area-login">      
         <div class="container">
-          <section class="col-md-12 mx-auto m-0">
+          <div class="col-md-12">
+            <h4 id="titulo-pagina">Detalhes do projeto</h4>
+          </div>
+          <br><br>
+          <a href="/project/register" type="button" class="btn btn-secondary" >Cadastrar projeto</a><br><br>
+          <table class="table table-striped">
             <thead>
-              <form action="/home/search" class="d-flex" role="search" method="get">
-                <a href="/project/register" type="button" class="btn btn-secondary">Cadastrar projeto</a>
-                <input class="form-control me-2" type="search" placeholder="Pesquise um usuário" aria-label="Search"
-                  name="key">
-                <button class="btn btn-outline-success" type="submit">Buscar</button>
-              </form>
-              <table class="table table-striped">
-                <tr>
+              <tr>
                   <th scope="col">Nome do projeto</th>
                   <th scope="col">Cidade</th>
                   <th scope="col">Estado</th>
@@ -46,33 +45,29 @@
               <tbody class="table-group-divider">
                 <tr>
                   <th scope="row">
-                    <%= project.title %>
+                    <%= project.title %> 
                   </th>
-                  <td>
-                    <%= project.zipe_code %>
+                  <td id="cidade"> 
+                    <%= response.localidade %>
                   </td>
-                  <td>
-                    <%= project.zipe_code %>
+                  <td id="estado">
+                    <%= response.uf %>
                   </td>
                   <td>
                     <%= project.cost %>
                   </td>
                   <td>
-                    <td>
-                      <%= project.done %>
-                    </td>
-                  </td>
-                  <td>
                     <%= project.deadline %>
                   </td>
                   <td>
-                    <a href="/project/<%= project.id %>/edit" type="button" class="btn btn-secondary">Editar</a>
+                    <%= project.username %>
                   </td>
-
+                  <td>
+                    <a href="/project/<%= project.id %>/edit" type="button" class="btn btn-secondary" id="btn-edit" >Editar</a>
+                  </td>
                 </tr>
               </tbody>
-                </table>
-          </section>
+            </table>
         </div>
       </section>
     </main>

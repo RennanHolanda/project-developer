@@ -1,56 +1,93 @@
 const { Project } = require('../models');
 const sequelize = require("sequelize");
+const Op = sequelize.Op;
+const cepApi = require('../services/cepApi')
+
 
 const ProjectController = {
     index: async (req, res) => {
-        let project = await Project.findAll();
+        try {
+            let project = await Project.findAll();
 
         return res.render("./projetos/projeto", { project });
+        } catch (error) {
+            return res.render("./projetos/projeto", { error:"Sistema indisponível" });
+        } 
     },
-    done: (req, res) => {
-        res.redirect('/projects');
-    },
-    showProject: (req, res) => {
-        res.render('./projetos/detalhes');
+    done:async (req, res) => {
+        try {
+            const {done} = req.body;
+            const { id } = req.params;
+    
+            if (done) {
+              await Project.update(
+                {
+                  done: true,
+                },
+                {
+                  where: {
+                    id: id,
+                  },
+                }
+                );
+            }
+            return res.redirect('/projects');
+        } catch (error) {
+            res.render("./projetos/projeto", {error:"Sistema indisponível"})
+        }
     },
     showRegister: (req, res) => {
-        res.render('./projetos/cadastrar');
+        
+        return res.render('./projetos/cadastrar');
+     
     },
     register: async (req, res) => {
         try {
-            const { title, zipe_code, cost, done, deadline, user_id  } = req.body;
-            const veradeiro = false;
-
+            const { title, zipe_code, cost, deadline } = req.body;
+            const userId = req.session.user.id;
+            const username = req.session.user.username;
 
             const project = await Project.create({
                 title,
                 zipe_code,
                 cost,
-                done:veradeiro,
                 deadline,
-                user_id
+                username,
+                user_id:userId
             })
-            console.log(project);
+            res.redirect('/projects')
         } catch (error) {
             console.log(error)
-            return res.render('./projetos/projeto', {error:"Sistema indisponível"})
-            
+            return res.render('./projetos/projeto', {error:"Sistema indisponível"})  
         }
     },
-    showDetails: async (req, res) => {
-        const { id } = req.params;
-
+    showProject: async (req, res) => {
+        try {
+            const { id } = req.params;
         const project = await Project.findByPk(id);
+        const response = await cepApi.get(`/${project.zipe_code}/json/`);
+        console.log(response.data)
 
-        res.render('./projetos/detalhes', { project });
+            return res.render('./projetos/detalhes', { project, response:response.data });
+        } catch (error) {
+
+            return res.render('./projetos/detalhes', { error:"Sistema indisponível"});
+        }
+        
     },
     showUpdate: async (req, res) => {
-        const { id } = req.params;
+        try {
+            const { id } = req.params;
 
-        const project = await Project.findByPk(id);
+            const project = await Project.findByPk(id);
 
-        res.render('./projetos/editar', { project });
+            return res.render('./projetos/editar', { project });
+        } catch (error) {
+            console.log(error)
+           return res.render('./projetos/editar', { error:"Sistema indisponível" })
+        } 
     },
+
     update: async (req, res) => {
         try {
             const { id } = req.params;
@@ -68,7 +105,6 @@ const ProjectController = {
                     where: { id },
                 }
             )
-            console.log(project);
             res.redirect('/projects');
         } catch (error) {
             console.log(error)
@@ -76,17 +112,34 @@ const ProjectController = {
             
         }
     },
-    destroy: async (req, res) => {
-        const { id } = req.params;
+    delete: async (req, res) => {
+        try {
+            const { id } = req.params;
 
-        const destroyProject = await Project.destroy({
+            await Project.destroy({
+                where: {
+                  id: id,
+                }
+              });
+        res.redirect('/projects');
+        } catch (error) {
+            return res.render('./projetos/projeto', {error:"Sistema indisponível"})
+        }
+        
+    },
+    search: async (req, res) => {
+        let { key } = req.query;
+    
+        let project = await Project.findAll({
           where: {
-            id: id,
+            title: {
+              [Op.like]: `%${key}%`,
+            },
           },
         });
-        console.log(destroyProject)
-        res.redirect('/projects');
-    }
+    
+        return res.render("./projetos/projeto", { project });
+      },
 }
 
 module.exports = ProjectController;

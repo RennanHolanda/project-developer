@@ -1,6 +1,5 @@
 const { User } = require("../models");
 const sequelize = require("sequelize");
-const Op = sequelize.Op;
 const bcrypt = require("bcryptjs");
 
 const HomeController = {
@@ -14,6 +13,7 @@ const HomeController = {
   },
 
   loginProcess: async (req, res) => {
+    
     const { username, password } = req.body;
 
       const user = await User.findOne({
@@ -80,24 +80,6 @@ const HomeController = {
     res.redirect("/home/users");
   },
 
-  destroy: async (req, res) => {
-    const { id } = req.params;
-
-    const resultado = await User.destroy({
-      where: {
-        id: id,
-      },
-    });
-    console.log(resultado);
-    res.redirect("/home/users");
-  },
-
-  // showUsers: async (req, res) => {
-  //   let users = await User.findAll();
-
-  //   return res.render("./home/usuarios", { users });
-  // },
-
   showUser: async (req, res) => {
     let { id } = req.params;
 
@@ -107,20 +89,6 @@ const HomeController = {
       },
     });
     return res.render("./home/detalhes", { user });
-  },
-
-  search: async (req, res) => {
-    let { key } = req.query;
-
-    let users = await User.findAll({
-      where: {
-        name: {
-          [Op.like]: `%${key}%`,
-        },
-      },
-    });
-
-    return res.render("./home/usuarios", { users });
   },
 };
 

@@ -7,7 +7,7 @@ module.exports = {
       {
         id: {
           type: Sequelize.DataTypes.UUID,
-          allowNull: false,
+          allowNull: false,  
           primaryKey: true
         },
         name: {
@@ -17,7 +17,7 @@ module.exports = {
 
         username: {
           type: Sequelize.DataTypes.STRING(150),
-          allowNull: false
+          allowNull: false, 
         },
        
         password:{

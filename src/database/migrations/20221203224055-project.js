@@ -31,6 +31,10 @@ module.exports = {
           type: Sequelize.DataTypes.DATE,
           allowNull: false
         },
+        username: {
+          type: Sequelize.DataTypes.STRING(150),
+          allowNull: false,
+        },
         user_id:{
           type: Sequelize.DataTypes.UUID,
           references: {

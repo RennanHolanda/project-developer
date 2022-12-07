@@ -23,14 +23,19 @@ module.exports = (sequelize, DataTypes) => {
         },
         done: {
           type: DataTypes.BOOLEAN,
-          allowNull: false
+          allowNull: false,
+          defaultValue: false
         },
         deadline: {
           type: DataTypes.DATE,
           allowNull: false
         },
+        username: {
+          type: DataTypes.STRING(150),
+          allowNull: false
+        },
         user_id:{
-          type: DataTypes.UUID,
+          type: DataTypes.STRING(150),
           references: {
             model: { tableName: 'users' },
             key: 'id'

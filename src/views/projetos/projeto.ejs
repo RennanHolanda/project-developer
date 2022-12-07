@@ -21,16 +21,24 @@
 <body>
   <%- include("../partials/header.ejs")%>
     <main>
-      <section id="area-login">
-        <div class="container">
-          <section class="col-md-12 mx-auto m-0">
+      <br><br>
+      <div class="container">
+        <div class="col-md-12">
+          <h4 id="titulo-pagina">Projetos</h4>
+        </div>
+        <section class="col-md-12 mx-auto m-0">
+            <div id="form-search">
+                <form action="/projects/search" class="d-flex" role="search" method="get">
+                  <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search"
+                    name="key">
+                  <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+              </div>
+              <div id="btn-project">
+                <a href="/project/register" id="cadastrar-projeto" type="button" class="btn btn-secondary">Cadastrar projeto</a>
+              </div>
+              <br>
             <thead>
-              <form action="/home/search" class="d-flex" role="search" method="get">
-                <a href="/project/register" type="button" class="btn btn-secondary">Cadastrar projeto</a>
-                <input class="form-control me-2" type="search" placeholder="Pesquise um usuário" aria-label="Search"
-                  name="key">
-                <button class="btn btn-outline-success" type="submit">Buscar</button>
-              </form>
               <table class="table table-striped">
                 <tr>
                   <th scope="col">Nome do projeto</th>
@@ -39,7 +47,7 @@
                   <th scope="col">status</th>
                   <th scope="col">Data limite</th>
                   <th scope="col">Usuário</th>
-                  <th scope="col">Detalhes</th>
+                  <th scope="col">Ações</th>
                   <th scope="col">Excluir</th>
                 </tr>
             </thead>
@@ -56,13 +64,17 @@
                     <%= project.cost %>
                   </td>
                   <td>
-                    <form action="/projectc/<%= project.done %>/done?method=PATCH" method="post">
+                    <form action="/project/<%= project.id %>/done?_method=PATCH" method="POST">
                       <div class="col-md-4">
-                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required name="done">
+                        <input class="form-check-input" type="checkbox" value="true" id="invalidCheck" required name="done">
                         <label class="form-check-label" for="invalidCheck">
                           <div class="col-md-10" id="cadastrar-projeto">
+                            <% if(project.done) { %>
+                              <p>Concluído</p>
+                          <% } else { %>
+                              <p>Em andamento</p>
+                        <%  }  %>
                           </div>
-                          Projeto concluido
                         </label>
                       </div>
                       <button type="submit" class="btn btn-primary">Salvar</button>
@@ -72,15 +84,15 @@
                     <%= project.deadline %>
                   </td>
                   <td>
-                    <%= project.user_id %>
+                    <%= project.username %>
                   </td>
                   <td>
                     <a href="/project/<%= project.id %>" type="button" class="btn btn-secondary">Ver dados</a>
                   </td>
                   <td>
-                    <form class="row g-3" action="/project/<%=project.id %>?_method=DELETE" method="POST">
-                      <button id="btn-dager"type="button" class="btn btn-danger">Deletar</button>
-                  </form>
+                    <form action="/projects/<%= project.id %>?_method=DELETE" method="POST">
+                      <button id="btn-dager" type="submit" class="btn btn-danger">Remover</button>
+                    </form>
                   </td>
                 </tr>
               </tbody>
@@ -88,7 +100,6 @@
                 </table>
           </section>
         </div>
-      </section>
     </main>
     <%- include('../partials/footer') %>
       <!-- JavaScript Bundle with Popper -->
